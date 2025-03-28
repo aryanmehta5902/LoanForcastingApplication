@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loan-prediction-app
+  labels:
+    app: loan-prediction-app
+spec:
+  replicas: 2  # Number of replicas for your app
+  selector:
+    matchLabels:
+      app: loan-prediction-app
+  template:
+    metadata:
+      labels:
+        app: loan-prediction-app
+    spec:
+      containers:
+      - name: loan-prediction-app
+        image: gcr.io/loanprediction-445710/streamfinal:latest  # Ensure this tag is available
+        ports:
+        - containerPort: 8501
+        resources:
+          limits:
+            memory: "512Mi"  # Memory limit (512 MiB)
+            cpu: "500m"      # CPU limit (0.5 CPU core)
+          requests:
+            memory: "256Mi"  # Memory request (256 MiB)
+            cpu: "250m"      # CPU request (0.25 CPU core)
+        imagePullPolicy: Always  # Always pull the latest version of the image
